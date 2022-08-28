@@ -34,10 +34,7 @@
                 <div class='col-sm-6'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                            <p>Date: <input type="text" id="datepicker"></p>
                         </div>
                     </div>
                 </div>
@@ -47,10 +44,9 @@
         @Scripts.Render("~/bundles/bootstrap")
         <script type="text/javascript">
             $(function () {
-                $('#datetimepicker1').datetimepicker({
-                    useCurrent: false,
-                    format: '20/08/2022 12:53'
-                });
+                $("#datepicker").datepicker({
+
+                }).datepicker("setDate", new Date(2022, 8 - 1, 20));
             });
         </script>
         <script type="text/javascript" src="/Scripts/jquery-3.4.1.min.js" defer></script>
