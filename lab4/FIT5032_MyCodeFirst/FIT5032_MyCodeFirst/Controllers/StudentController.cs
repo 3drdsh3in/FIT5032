@@ -15,7 +15,7 @@ namespace FIT5032_MyCodeFirst.Controllers
     // Likewise with "StudentsController" it would access the directory "Students/Index.cshtml"
     public class StudentController : Controller
     {
-        private FIT5032_CodeFirstContext db = new FIT5032_CodeFirstContext();
+        private FIT5032_CodeFirstContext2 db = new FIT5032_CodeFirstContext2();
 
         // GET: Student
         public ActionResult Index()

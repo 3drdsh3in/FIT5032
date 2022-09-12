@@ -1,0 +1,54 @@
+﻿.index-header {
+    height: 100%;
+    display: flex;
+    padding-top: 51px;
+    color: inherit;
+    background-color: #eeeeee;
+    min-height: 768px;
+}
+
+@media (max-width:1600px) {
+    .index-header {
+        min-height: 568px;
+    }
+}
+
+@media (max-width:768px) {
+    .index-header {
+        min-height: 360px;
+    }
+}
+
+.index-header .index-header-introduction {
+    width: 50%;
+    /*padding-top: 30px;*/
+    /*padding-bottom: 30px;*/
+    /*margin-bottom: 30px;*/
+    color: inherit;
+    background-color: #eeeeee;
+    margin: auto;
+}
+
+    .index-header .index-header-introduction h1 {
+        margin: 0px 15px;
+    }
+
+    .index-header .index-header-introduction p {
+        margin: 0px 15px;
+    }
+
+.index-header .header-image-holder {
+    display: table-cell;
+    width: 50%;
+    background: url(../Images/happy_family2.png);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+}
+
+/* Set padding to keep content from hitting the edges */
+.text-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+}
