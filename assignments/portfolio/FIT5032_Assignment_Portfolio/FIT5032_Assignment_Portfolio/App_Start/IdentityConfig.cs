@@ -34,8 +34,9 @@ namespace FIT5032_Assignment_Portfolio
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
-    {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+    { 
+
+    public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
         }
@@ -84,14 +85,42 @@ namespace FIT5032_Assignment_Portfolio
                 manager.UserTokenProvider = 
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
+            ApplicationRoleSetup();
+
             return manager;
+        }
+
+        // Role Setup Method (Always three roles):
+        private static void ApplicationRoleSetup()
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            if (!roleManager.RoleExists("Client"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Client";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("Staff"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Staff";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+            }
+
         }
     }
 
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+    public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }

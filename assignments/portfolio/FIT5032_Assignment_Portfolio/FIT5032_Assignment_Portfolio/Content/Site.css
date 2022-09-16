@@ -1,7 +1,6 @@
 ﻿body {
-    /*padding-top: 50px;
-    padding-bottom: 20px;*/
     height: 100vh;
+    padding-bottom: 20px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

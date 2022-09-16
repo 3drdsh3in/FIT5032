@@ -1,0 +1,10 @@
+﻿.appointment-table-view {
+    padding: 75px 15px;
+    margin: 0 auto;
+}
+
+.appointment-table-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

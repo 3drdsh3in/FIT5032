@@ -106,6 +106,8 @@ C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\lab7\FIT5032_Assign
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\lab7\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.CopyComplete
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\lab7\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.dll
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\lab7\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.pdb
+C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.AssemblyReference.cache
+C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.CoreCompileInputs.cache
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\FIT5032_Assignment_Portfolio.dll.config
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\FIT5032_Assignment_Portfolio.dll
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\FIT5032_Assignment_Portfolio.pdb
@@ -209,8 +211,6 @@ C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfol
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.AssemblyReference.cache
-C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.CoreCompileInputs.cache
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.csproj.CopyComplete
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.dll
 C:\Users\super\OneDrive\Desktop\Uni\FIT5032\projects\FIT5032\assignments\portfolio\FIT5032_Assignment_Portfolio\FIT5032_Assignment_Portfolio\obj\Debug\FIT5032_Assignment_Portfolio.pdb

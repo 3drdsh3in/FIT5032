@@ -68,7 +68,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            ToggleOfBodyPaddingMargin();
+            ToggleOffBodyPaddingMargin();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -92,7 +92,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             }
         }
 
-        private void ToggleOfBodyPaddingMargin()
+        private void ToggleOffBodyPaddingMargin()
         /* Use to remove the padding & margin css for the body tag */
         {
             ViewBag.BodyPaddingMargin = false;
@@ -156,13 +156,34 @@ namespace FIT5032_Assignment_Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            ToggleOfBodyPaddingMargin();
+            ToggleOffBodyPaddingMargin();
             if (ModelState.IsValid)
             {
+                // Insert User
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                // If Succeed, Immediately Performs Sign In & Redirect To Index.
                 if (result.Succeeded)
                 {
+                    String redirectController = "Account", redirectEndpoint = "Account";
+                    // Insert User Role Type
+                    switch (model.Type)
+                    {
+                        case UserType.Client:
+                            await UserManager.AddToRoleAsync(user.Id, "Client");
+                            break;
+                        case UserType.Staff:
+                            await UserManager.AddToRoleAsync(user.Id, "Staff");
+                            break;
+                        case UserType.Admin:
+                            await UserManager.AddToRoleAsync(user.Id, "Admin");
+                            redirectController = "Home"; redirectEndpoint = "Index";
+                            break;
+                        default:
+                            break;
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -170,8 +191,8 @@ namespace FIT5032_Assignment_Portfolio.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    
+                    return RedirectToAction(redirectEndpoint,redirectController);
                 }
                 AddErrors(result);
             }
