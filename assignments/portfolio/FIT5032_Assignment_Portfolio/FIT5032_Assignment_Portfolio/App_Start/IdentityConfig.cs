@@ -115,6 +115,14 @@ namespace FIT5032_Assignment_Portfolio
             }
 
         }
+
+        public static IEnumerable<IdentityRole> GetAllRoles()
+        {
+            var context = new ApplicationDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleMgr = new RoleManager<IdentityRole>(roleStore);
+            return roleMgr.Roles.ToList();
+        }
     }
 
     // Configure the application sign-in manager which is used in this application.

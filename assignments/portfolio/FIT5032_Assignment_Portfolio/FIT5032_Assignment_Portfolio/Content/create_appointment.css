@@ -1,0 +1,60 @@
+﻿/*.create-appointment {
+    margin: 0px auto;
+    padding: 0px 15px;
+}*/
+
+.form-horizontal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-horizontal .control-label {
+    text-align: left !important;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.map-form-group {
+    /*padding: 40px 20px;*/
+    position: relative;
+    width: 320px;
+
+    min-height: 300px;
+}
+
+.map-form-label {
+    display: flex;
+    flex-direction: column;
+    /*position: absolute;*/
+}
+
+.map-container {
+    width: 100%;
+    height: 75%;
+}
+
+.map {
+    /*position: absolute !important;*/
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    min-height: 300px;
+    margin: 20px 0 0 0;
+}
+
+.map-coordinates {
+    margin: 20px 0 0 0;
+    display: flex;
+    /*position: absolute;*/
+    bottom: 0;
+}
+
+.hidden {
+    display: none;
+}

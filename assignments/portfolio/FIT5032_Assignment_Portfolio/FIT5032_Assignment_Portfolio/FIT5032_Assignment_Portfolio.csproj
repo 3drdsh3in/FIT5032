@@ -181,14 +181,19 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppointmentModels.cs" />
-    <Compile Include="Models\AppointmentViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Rating\RatingViewModels.cs" />
+    <Compile Include="Models\Rating\RatingModels.cs" />
+    <Compile Include="Models\User\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment\AppointmentModels.cs" />
+    <Compile Include="Models\Appointment\AppointmentViewModels.cs" />
+    <Compile Include="Models\User\IdentityModels.cs" />
+    <Compile Include="Models\User\ManageViewModels.cs" />
+    <Compile Include="Models\User\NavigationBarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -203,6 +208,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\create_appointment.css" />
     <Content Include="Content\home.css" />
     <Content Include="Content\register.css" />
     <Content Include="favicon.ico" />
@@ -211,6 +217,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\happy_family.png" />
     <Content Include="Images\happy_family2.png" />
+    <Content Include="Models\DropTables.sql" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -274,11 +281,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Appointment\Appointment.cshtml" />
+    <Content Include="Views\Appointment\Appointments.cshtml" />
     <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Shared\NavigationBar.cshtml" />
+    <Content Include="Views\Account\UpdateUserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Rating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

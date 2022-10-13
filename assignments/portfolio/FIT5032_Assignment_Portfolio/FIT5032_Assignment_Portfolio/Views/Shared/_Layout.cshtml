@@ -7,34 +7,20 @@
     <link rel="stylesheet" href="~/Content/home.css">
     <link rel="stylesheet" href="~/Content/register.css">
     <link rel="stylesheet" href="~/Content/appointment.css">
+    <link rel="stylesheet" href="~/Content/create_appointment.css">
     <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body ng-app>
     @*<span>{{10 * 10}}</span>*@
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("MedConnect", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
+    
+    @{Html.RenderAction("NavigationBar","Shared",null);}
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
@@ -45,5 +31,13 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" defer></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" defer></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" defer></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                order: [[3, 'desc']],
+            });
+        });
+    </script>
 </body>
 </html>

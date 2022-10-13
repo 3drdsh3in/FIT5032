@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FIT5032_Assignment_Portfolio.Models;
+using System.Collections;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace FIT5032_Assignment_Portfolio.Controllers
 {
@@ -74,9 +78,58 @@ namespace FIT5032_Assignment_Portfolio.Controllers
                 return View(model);
             }
 
+            ApplicationUser user;
+            List<String> roles;
+            List<IdentityRole> allRoles = (List<IdentityRole>)ApplicationUserManager.GetAllRoles();
+
+            user = UserManager.FindByEmail(model.Email);
+            roles = (List<String>)UserManager.GetRoles(user.Id);
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
+            string userType;
+
+            switch(model.Type)
+            {
+                case UserType.Admin:
+                    userType = "Admin";
+                    break;
+                case UserType.Client:
+                    userType = "Client";
+                    break;
+                case UserType.Staff:
+                    userType = "Staff";
+                    break;
+                default:
+                    userType = null;
+                    break;
+            }
+
+            bool foundMatchingRole = false;
+
+
+            foreach (var role in allRoles)
+            {
+                foreach (var userRole in roles)
+                {
+                    if (userRole == role.Name &&  role.Name == userType)
+                    {
+                        foundMatchingRole = true;
+                    }
+                }
+
+            }
+
+            if (!foundMatchingRole)
+            {
+                ModelState.AddModelError("", "Role Not Found For This User Of Type: " + userType);
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                return View(model);
+
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -141,7 +194,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             }
         }
 
-        //
+        //z
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -160,41 +213,56 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             if (ModelState.IsValid)
             {
                 // Insert User
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-
-                // If Succeed, Immediately Performs Sign In & Redirect To Index.
-                if (result.Succeeded)
-                {
-                    String redirectController = "Account", redirectEndpoint = "Account";
-                    // Insert User Role Type
-                    switch (model.Type)
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PreferredNameTitle=model.UserName };
+                try { 
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    // If Succeed, Immediately Performs Sign In & Redirect To Index.
+                    if (result.Succeeded)
                     {
-                        case UserType.Client:
-                            await UserManager.AddToRoleAsync(user.Id, "Client");
-                            break;
-                        case UserType.Staff:
-                            await UserManager.AddToRoleAsync(user.Id, "Staff");
-                            break;
-                        case UserType.Admin:
-                            await UserManager.AddToRoleAsync(user.Id, "Admin");
-                            redirectController = "Home"; redirectEndpoint = "Index";
-                            break;
-                        default:
-                            break;
-                    }
+                        String redirectController = "Home", redirectEndpoint = "Index";
+                        // Insert User Role Type
+                        switch (model.Type)
+                        {
+                            case UserType.Client:
+                                await UserManager.AddToRoleAsync(user.Id, "Client");
+                                break;
+                            case UserType.Staff:
+                                await UserManager.AddToRoleAsync(user.Id, "Staff");
+                                break;
+                            case UserType.Admin:
+                                await UserManager.AddToRoleAsync(user.Id, "Admin");
+                                redirectController = "Home"; redirectEndpoint = "Index";
+                                break;
+                            default:
+                                break;
+                        }
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     
-                    return RedirectToAction(redirectEndpoint,redirectController);
+                        return RedirectToAction(redirectEndpoint,redirectController);
+                    }
+                    AddErrors(result);
+                } catch(DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
                 }
-                AddErrors(result);
+
             }
 
             // If we got this far, something failed, redisplay form
@@ -430,6 +498,43 @@ namespace FIT5032_Assignment_Portfolio.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        // 
+        // GET: /Account/Update
+        [HttpGet]
+        public ActionResult Update()
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            UpdateUserDetailsModel model = new UpdateUserDetailsModel();
+            model.UserName = User.Identity.GetUserName();
+            model.Email = user.Email;
+            model.PreferredNameTitle = user.PreferredNameTitle;
+            return View("UpdateUserDetails", model);
+        }
+
+        //
+        // Post: /Account/Update
+        [HttpPost]
+        public async Task<ActionResult> Update(UpdateUserDetailsModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Get Current User Id
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+
+            user.UserName = model.UserName;
+            PasswordHasher hasher = new PasswordHasher();
+            user.PasswordHash = hasher.HashPassword(model.Password);
+            user.Email = model.Email;
+            user.PreferredNameTitle = model.PreferredNameTitle;
+
+            UserManager.Update(user);
+
+            return RedirectToAction("Index", "Manage");
         }
 
         protected override void Dispose(bool disposing)

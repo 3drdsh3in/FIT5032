@@ -47,22 +47,22 @@ namespace FIT5032_Assignment_Portfolio
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: "x",
+            //    clientSecret: "x");
 
             //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            //   consumerKey: "W1Bn8LockFVpYjthvRgNowlNl",
+            //   consumerSecret: "O5BFCAoo0Byqp4KHy0rfzwkdrbxibwKVJEEB4GRdkOdmbeEpKb");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "x",
+            //   appSecret: "x");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "x",
+                ClientSecret = "x"
+            });
         }
     }
 }
