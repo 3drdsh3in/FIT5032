@@ -1,5 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Owin;
 using Owin;
+using System.Web.Services.Description;
 
 [assembly: OwinStartupAttribute(typeof(FIT5032_Assignment_Portfolio.Startup))]
 namespace FIT5032_Assignment_Portfolio

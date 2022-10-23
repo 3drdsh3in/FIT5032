@@ -6,3 +6,6 @@ DROP TABLE AspNetUserLogins;
 DROP TABLE AspNetUserRoles;
 DROP TABLE AspNetUsers;
 DROP TABLE AspNetRoles;
+DROP TABLE BusinessLocations;
+DROP TABLE BusinessEmployees;
+DROP TABLE Businesses;

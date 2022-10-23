@@ -17,10 +17,12 @@ using System.Data.Entity.Validation;
 namespace FIT5032_Assignment_Portfolio.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private BusinessDbContext db = new BusinessDbContext();
 
         public AccountController()
         {
@@ -61,6 +63,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ToggleOffBodyPaddingMargin();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -83,6 +86,12 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             List<IdentityRole> allRoles = (List<IdentityRole>)ApplicationUserManager.GetAllRoles();
 
             user = UserManager.FindByEmail(model.Email);
+
+            if (user == null)
+            {
+                return View();
+            }
+
             roles = (List<String>)UserManager.GetRoles(user.Id);
 
             // This doesn't count login failures towards account lockout
@@ -114,7 +123,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             {
                 foreach (var userRole in roles)
                 {
-                    if (userRole == role.Name &&  role.Name == userType)
+                    if (userRole == role.Name && role.Name == userType)
                     {
                         foundMatchingRole = true;
                     }
@@ -194,11 +203,12 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             }
         }
 
-        //z
+        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ToggleOffBodyPaddingMargin();
             return View();
         }
 
@@ -213,7 +223,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             if (ModelState.IsValid)
             {
                 // Insert User
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PreferredNameTitle=model.UserName };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 try { 
                     var result = await UserManager.CreateAsync(user, model.Password);
                     // If Succeed, Immediately Performs Sign In & Redirect To Index.
@@ -231,6 +241,16 @@ namespace FIT5032_Assignment_Portfolio.Controllers
                                 break;
                             case UserType.Admin:
                                 await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+                                // Add a corresponding Business.
+                                Business business = new Business();
+                                business.Id = Guid.NewGuid().ToString("N");
+                                business.AdminId = user.Id;
+                                business.BusinessName = "Placeholder Business Name"; // To Update
+
+                                db.Businesses.Add(business);
+                                db.SaveChanges();
+
                                 redirectController = "Home"; redirectEndpoint = "Index";
                                 break;
                             default:
@@ -462,10 +482,36 @@ namespace FIT5032_Assignment_Portfolio.Controllers
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    return View("ExternalLoginFailure");
+                    return View("EternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
+
+                switch (model.Type)
+                {
+                    case UserType.Client:
+                        await UserManager.AddToRoleAsync(user.Id, "Client");
+                        break;
+                    case UserType.Staff:
+                        await UserManager.AddToRoleAsync(user.Id, "Staff");
+                        break;
+                    case UserType.Admin:
+                        await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+                        // Add a corresponding Business.
+                        Business business = new Business();
+                        business.Id = Guid.NewGuid().ToString("N");
+                        business.AdminId = user.Id;
+                        business.BusinessName = "Placeholder Business Name"; // To Update
+
+                        db.Businesses.Add(business);
+                        db.SaveChanges();
+
+                        break;
+                    default:
+                        break;
+                }
+
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
@@ -509,14 +555,14 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             UpdateUserDetailsModel model = new UpdateUserDetailsModel();
             model.UserName = User.Identity.GetUserName();
             model.Email = user.Email;
-            model.PreferredNameTitle = user.PreferredNameTitle;
             return View("UpdateUserDetails", model);
         }
 
         //
         // Post: /Account/Update
         [HttpPost]
-        public async Task<ActionResult> Update(UpdateUserDetailsModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(UpdateUserDetailsModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -530,8 +576,6 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             PasswordHasher hasher = new PasswordHasher();
             user.PasswordHash = hasher.HashPassword(model.Password);
             user.Email = model.Email;
-            user.PreferredNameTitle = model.PreferredNameTitle;
-
             UserManager.Update(user);
 
             return RedirectToAction("Index", "Manage");

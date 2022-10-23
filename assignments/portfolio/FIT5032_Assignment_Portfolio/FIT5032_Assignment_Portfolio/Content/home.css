@@ -1,9 +1,8 @@
 ﻿.index-header {
     height: 100%;
     display: flex;
-    padding-top: 51px;
+    /*padding-top: 51px;*/
     color: inherit;
-    background-color: #eeeeee;
     min-height: 768px;
 }
 
@@ -21,9 +20,9 @@
 
 .index-header .index-header-introduction {
     width: 50%;
-    /*padding-top: 30px;*/
-    /*padding-bottom: 30px;*/
-    /*margin-bottom: 30px;*/
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     color: inherit;
     background-color: #eeeeee;
     margin: auto;

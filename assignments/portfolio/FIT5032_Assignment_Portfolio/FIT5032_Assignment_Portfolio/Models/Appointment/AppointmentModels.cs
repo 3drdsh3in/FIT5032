@@ -16,14 +16,13 @@ namespace FIT5032_Assignment_Portfolio.Models
     {
         public string Id { get; set; }
         public string ClientUserId { get; set; }
-        public string AppointedDateTimeStart { get; set; }
-        public string AppointedDateTimeEnd { get; set; }
+        public string StaffUserId { get; set; }
+        public DateTime AppointedDateTimeStart { get; set; }
+        public DateTime AppointedDateTimeEnd { get; set; }
         public string AppointedLocationName { get; set; }
         public string AppointedLocationLat { get; set; }
         public string AppointedLocationLong { get; set; }
         public string Description { get; set; }
-        public int Rating { get; set; }
-        public bool Complete { get; set; }
     }
 
     [Table("AppointmentUsers")]
@@ -31,9 +30,7 @@ namespace FIT5032_Assignment_Portfolio.Models
     {
         public string Id { get; set; }
         public string AppointmentId { get; set; }
-
         public string UserId { get; set; }
-
         public string UserRole { get; set; }
     }
 

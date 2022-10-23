@@ -9,34 +9,56 @@
     <link rel="stylesheet" href="~/Content/appointment.css">
     <link rel="stylesheet" href="~/Content/create_appointment.css">
     <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">*@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
+    <script src="https://kit.fontawesome.com/b9005f6bac.js" crossorigin="anonymous"></script>
+
+    @* MapBox *@
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body ng-app>
     @*<span>{{10 * 10}}</span>*@
-    
-    @{Html.RenderAction("NavigationBar","Shared",null);}
-    @RenderBody()
+
+    @{Html.RenderAction("NavigationBar", "Shared", null);}
+
+    @if (ViewBag.BodyPaddingMargin == true || ViewBag.BodyPaddingMargin == null)
+    {
+        <div class="container">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        @RenderBody()
+    }
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js" defer></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js" defer></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" defer></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" defer></script>
-    <script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js" defer></script>*@
+    <script defer>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                order: [[3, 'desc']],
-            });
+            $('#dataTable').DataTable(
+                //{
+                //order: [[3, 'desc']],
+                //}
+            );
         });
     </script>
 </body>

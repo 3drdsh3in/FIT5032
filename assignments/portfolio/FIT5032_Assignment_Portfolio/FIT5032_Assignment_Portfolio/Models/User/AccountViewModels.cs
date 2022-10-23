@@ -6,8 +6,14 @@ namespace FIT5032_Assignment_Portfolio.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        public UserType Type { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -107,11 +113,6 @@ namespace FIT5032_Assignment_Portfolio.Models
         [DataType(DataType.Text)]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "PreferredNameTitle")]
-        public string PreferredNameTitle { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

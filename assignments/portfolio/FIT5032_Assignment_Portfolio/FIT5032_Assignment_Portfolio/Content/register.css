@@ -24,10 +24,22 @@
     .register-photo form {
         display: table-cell;
         vertical-align: middle;
-        width: 400px;
+        /*width: 400px;*/
         background-color: #ffffff;
-        padding: 40px 60px;
+        padding-top: 60px;
         color: #505e6c;
+    }
+    
+    .inner-form-container {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .inner-form-container-child {
+        width: 100%;
+        padding: 0px 40px;
     }
 
 @media (max-width:768px) {
@@ -99,4 +111,29 @@
     color: #6f7a85;
     opacity: 0.9;
     text-decoration: none;
+}
+
+form.socialLoginListWrapper {
+    padding: 0px;
+    padding-top: 0px;
+}
+
+.externalLoginConfirmation {
+    padding-top: 60px;
+}
+
+.sendEmailWrapper {
+    padding-top: 60px;
+}
+
+.form-group-sendemail {
+    width: 100%;
+}
+
+input.checkInputBox {
+    margin-left: 15px !important;
+}
+
+.checkInputLabel {
+    padding-right: 15px;
 }

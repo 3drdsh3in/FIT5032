@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace FIT5032_Assignment_Portfolio.Controllers
 {
+    [RequireHttps]
     public class SharedController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -66,6 +67,7 @@ namespace FIT5032_Assignment_Portfolio.Controllers
             // Check If Logged In
             if (User.Identity.IsAuthenticated)
             {
+                TempData["LoggedIn"] = "true";
                 navigationBarViewModel.LoggedIn = true;
 
                 var userIdentity = (ClaimsIdentity)User.Identity;
@@ -73,12 +75,11 @@ namespace FIT5032_Assignment_Portfolio.Controllers
                 var roleClaimType = userIdentity.RoleClaimType;
 
                 // or...
-                var roles = claims.Where(c => c.Type == roleClaimType).ToList();
+               var roles = claims.Where(c => c.Type == roleClaimType).ToList();
                foreach (var role in roles)
                 {
-                    if (role.Value == "Client" || role.Value == "Staff") {
-                        navigationBarViewModel.ClientType = role.Value; // Should only be one of the two for the current system.
-                    }
+                    navigationBarViewModel.ClientType = role.Value; // Should only be one of the two for the current system.
+                    TempData["ClientType"] = role.Value;
                 }
             }
 

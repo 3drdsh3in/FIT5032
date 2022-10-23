@@ -14,9 +14,15 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @if (Model.LoggedIn && Model.ClientType != "Admin")
+                @if (Model.LoggedIn && !TempData["ClientType"].Equals("Admin"))
                 {
                     <li>@Html.ActionLink("Appointments", "Appointments", "Appointment")</li>
+                }
+                @if (Model.LoggedIn && TempData["ClientType"].Equals("Admin"))
+                {
+                    <li>@Html.ActionLink("Business Locations", "BusinessLocations", "Business")</li>
+                    <li>@Html.ActionLink("Employees", "BusinessEmployees", "Business")</li>
+                    <li>@Html.ActionLink("Send Email", "Send_Email", "Home")</li>
                 }
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

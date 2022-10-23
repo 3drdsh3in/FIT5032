@@ -2,13 +2,11 @@
 
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Appointment";
 }
 
 <div class="container create-appointment">
-    <h2>Create</h2>
-
-    <h4>Student</h4>
+    <h2>@ViewBag.Title</h2>
     <hr />
 
     @using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -30,20 +28,17 @@
                 @Html.ValidationMessageFor(model => model.ChosenClientEmail, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.AppointedDateTimeStart, htmlAttributes: new { @class = "control-label" })
-            <div class='datepicker' id='datetimepicker'>
-                @Html.EditorFor(model => model.AppointedDateTimeStart, new { htmlAttributes = new { @id = "meeting-time", @type = "datetime-local", @name = "meeting-time", @class = "form-control" } })
+            <div class='datepicker' id='datetimepicker1'>
+                @Html.EditorFor(model => model.AppointedDateTimeStart, new { htmlAttributes = new { @id = "meeting-time1", @type = "datetime-local", @name = "meeting-time", @class = "form-control" } })
             </div>
         </div>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.AppointedDateTimeEnd, htmlAttributes: new { @class = "control-label" })
-            <div class='datepicker' id='datetimepicker'>
-                @Html.EditorFor(model => model.AppointedDateTimeEnd, new { htmlAttributes = new { @id = "meeting-time", @type = "datetime-local", @name = "meeting-time", @class = "form-control" } })
+            <div class='datepicker' id='datetimepicker2'>
+                @Html.EditorFor(model => model.AppointedDateTimeEnd, new { htmlAttributes = new { @id = "meeting-time2", @type = "datetime-local", @name = "meeting-time", @class = "form-control" } })
             </div>
         </div>
 
@@ -58,13 +53,13 @@
                 <div class="map" id="map"></div>
             </div>
             <div class="map-coordinates">
-                <div class="">
+                <div class="map-coordinates-lat">
                     @Html.LabelFor(model => model.AppointedLocationLat, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.AppointedLocationLat, new { htmlAttributes = new { @id = "latInput", @type = "text", @class = "form-control" } })
+                    @Html.EditorFor(model => model.AppointedLocationLat, new { htmlAttributes = new { @id = "latInput", @type = "text", @class = "form-control", @readonly = "readonly" } })
                 </div>
-                <div class="">
+                <div class="map-coordinates-long">
                     @Html.LabelFor(model => model.AppointedLocationLong, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.AppointedLocationLong, new { htmlAttributes = new { @id = "longInput", @type = "text", @class = "form-control" } })
+                    @Html.EditorFor(model => model.AppointedLocationLong, new { htmlAttributes = new { @id = "longInput", @type = "text", @class = "form-control", @readonly = "readonly" } })
                 </div>
             </div>
 
@@ -97,11 +92,20 @@
         const access_token = 'pk.eyJ1IjoiZXNoZTAwMDciLCJhIjoiY2p1MHR3bXNwMXZpMDN6bWY2ZjkzOWZ1aCJ9.5RrkJBHJgjCKrhll6_5f1Q'
         const searchInputTag = document.getElementById("searchInput");
         const chosenClientTag = document.getElementById("chosenClientEmail");
-        const meetingTimeTag = document.getElementById("meeting-time");
+        const meetingTimeTag1 = document.getElementById("meeting-time1");
 
-        var isoDateString = (new Date()).toISOString().substring(0, 16);
-        meetingTimeTag.min = isoDateString;
-        meetingTimeTag.value = isoDateString;
+        const meetingTimeTag2 = document.getElementById("meeting-time2");
+
+        var date1 = new Date();
+        date1.setHours(date1.getHours() + 1)
+        var date2 = new Date();
+        date2.setHours(date2.getHours() + 2)
+        var isoDateString1 = (date1).toISOString().substring(0, 16);
+        meetingTimeTag1.min = isoDateString1;
+        meetingTimeTag1.value = isoDateString1;
+        var isoDateString2 = (date2).toISOString().substring(0, 16);
+        meetingTimeTag2.min = isoDateString1;
+        meetingTimeTag2.value = isoDateString2;
 
         mapboxgl.accessToken = access_token;
         const map = new mapboxgl.Map({
@@ -117,6 +121,7 @@
 
         function setCoordinates(coordinates) {
             console.log("RUN");
+            console.log(coordinates);
             latField.value = coordinates[0];
             longField.value = coordinates[1];
             console.log(coordinates);
@@ -136,6 +141,7 @@
                         var optionTag = document.createElement("option");
                         optionTag.value = name;
                         optionTag.onclick = setCoordinates(coordinates);
+                        console.log(optionTag);
                         searchInputAutoComplete.appendChild(optionTag);
 
                         // Remove Existing Marker and Set marker options.

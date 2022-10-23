@@ -1,6 +1,7 @@
 ﻿body {
     height: 100vh;
     padding-bottom: 20px;
+    background-color: #eeeeee;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -15,6 +16,12 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.bodyMarginPadding {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .navbar-inverse .navbar-toggle:hover,

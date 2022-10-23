@@ -29,12 +29,12 @@ namespace FIT5032_Assignment_Portfolio.Models
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time Start")]
-        public string AppointedDateTimeStart { get; set; }
+        public DateTime AppointedDateTimeStart { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time End")]
-        public string AppointedDateTimeEnd { get; set; } // TODO: Validate On Controller that i.e smaller than AppointedDateTimeStart
+        public DateTime AppointedDateTimeEnd { get; set; } // TODO: Validate On Controller that i.e smaller than AppointedDateTimeStart
 
         [Required]
         [DataType(DataType.Text)]
@@ -57,7 +57,7 @@ namespace FIT5032_Assignment_Portfolio.Models
     {
         public ListAppointmentViewModel ListViewModel { get; set; }
 
-        public UpdateAppointmentViewModel UpdateViewModel { get; set; }
+        public DeleteAppointmentViewModel DeleteViewModel { get; set; }
 
         public List<SelectListItem> dropDownListItems { get; set; }
     }
@@ -76,8 +76,8 @@ namespace FIT5032_Assignment_Portfolio.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "ClientId")]
-        public string ClientId { get; set; }
+        [Display(Name = "ClientName")]
+        public string ClientName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -87,12 +87,12 @@ namespace FIT5032_Assignment_Portfolio.Models
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time Start")]
-        public string AppointedDateTimeStart { get; set; }
+        public DateTime AppointedDateTimeStart { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time End")]
-        public string AppointedDateTimeEnd { get; set; }
+        public DateTime AppointedDateTimeEnd { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -101,14 +101,6 @@ namespace FIT5032_Assignment_Portfolio.Models
 
         [DataType(DataType.Text)]
         public string Description { get; set; }
-
-        [Display(Name = "Rating")]
-        public int Rating { get; set; }
-
-        [Required]
-
-        [Display(Name = "Is Complete")]
-        public bool Complete { get; set; }
     }
 
     public class UpdateAppointmentViewModel
@@ -118,19 +110,14 @@ namespace FIT5032_Assignment_Portfolio.Models
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time Start")]
-        public string AppointedDateTimeStart { get; set; }
+        public DateTime AppointedDateTimeStart { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Appointed Date Time End")]
-        public string AppointedDateTimeEnd { get; set; }
+        public DateTime AppointedDateTimeEnd { get; set; }
 
         [DataType(DataType.Text)]
         public string Description { get; set; }
-
-        public bool Complete { get; set; }
-
-        [Display(Name = "Rating")]
-        public int Rating { get; set; }
     }
 
     public class DeleteAppointmentViewModel

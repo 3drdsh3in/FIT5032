@@ -11,6 +11,7 @@ using FIT5032_Assignment_Portfolio.Models;
 namespace FIT5032_Assignment_Portfolio.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
